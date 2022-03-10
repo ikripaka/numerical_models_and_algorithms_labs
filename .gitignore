@@ -1,23 +1,33 @@
-
-<<<<<<< HEAD
-=======
-
-# Binaries for programs and plugins
-*.exe
-*.exe~
-*.dll
-*.so
-*.dylib
-
-# Test binary, built with `go test -c`
-*.test
-
-# Output of the go coverage tool, specifically when used with LiteIDE
-*.out
-
-# Dependency directories (remove the comment below to include it)
-# vendor/
-
+Skip to content
+Search or jump to…
+Pull requests
+Issues
+Marketplace
+Explore
+ 
+@ikripaka 
+ikripaka
+/
+aaf-labs-2021
+Public
+forked from DmitriyDanilin/aaf-labs-2021
+Code
+Pull requests
+Actions
+Projects
+Wiki
+Security
+Insights
+Settings
+aaf-labs-2021/kripaka_fi-94_cp11/.gitignore
+@ikripaka
+ikripaka feat: added new classes( Exec, Parser, ParserTest)
+…
+Latest commit 6e2cb2f on Oct 7, 2021
+ History
+ 1 contributor
+218 lines (161 sloc)  3.99 KB
+  
 # Reference: https://github.com/github/gitignore
 # From: https://gist.github.com/edesdan/6bb43343740bcd54ef0f56a384a2f66f
 
@@ -44,8 +54,14 @@ Thumbs.db
 # Compiled class file
 *.class
 
+# .odt files
+*.odt
+
 # Log file
 *.log
+
+#iml files
+*.iml
 
 # BlueJ files
 *.ctxt
@@ -64,7 +80,6 @@ Thumbs.db
 # virtual machine crash logs, see http://www.java.com/en/download/help/error_hotspot.xml
 hs_err_pid*
 
->>>>>>> 2c3d1a319bcd3f4eebc8044adbaae402a5280479
 ######################
 ######  Gradle  ######
 ######################
@@ -221,7 +236,6 @@ fabric.properties
 ### Intellij Patch ###
 # Comment Reason: https://github.com/joeblau/gitignore.io/issues/186#issuecomment-215987721
 
-<<<<<<< HEAD
 modules.xml
 
 /.idea
@@ -248,9 +262,3 @@ Training
 Blog
 About
 Loading complete
-=======
-# *.iml
-# modules.xml
-
-.lab1_rust/
->>>>>>> 2c3d1a319bcd3f4eebc8044adbaae402a5280479
