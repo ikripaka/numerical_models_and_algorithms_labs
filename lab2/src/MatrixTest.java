@@ -11,25 +11,61 @@ class MatrixTest {
         Matrix matrixB = new Matrix(B);
         System.out.println(matrixA);
         System.out.println(matrixB);
-
         System.out.println(matrixA.multiplication(matrixB));
     }
 
     @Test
-    void solveEquation() throws Exception {
-        double[][] A = {{6.92, 1.28, 0.79, 1.15, -0.66}, {0.92, 3.5, 1.3, -1.62, 1.02},
-                {1.15, -2.46, 6.1, 2.1, 1.483}, {1.33, 0.16, 2.1, 5.44, -18.},
-                {1.14, -1.68, -1.217, 9., -3.}};
+    void sqrtMethod1() throws Exception {
+        double[][] A = {{5.5, 7., 6., 5.5}, {7., 10.5, 8., 7.},
+                {6., 8., 10.5, 9.}, {5.5, 7, 9, 10.5}};
 
-        double[][] B = {{11.172, 0.115, 0.009, 9.349, 1}};
+        double[][] B = {{23.}, {32.}, {33.}, {31.}};
         Matrix matrixA = new Matrix(A);
         Matrix matrixB = new Matrix(B);
-        Matrix matrixС = new Matrix(5, 5);
+        System.out.println("A:\n" + matrixA);
+        System.out.println("B:\n" + matrixB);
+        System.out.println("|Ax - B|:\n" + matrixA.calculateR(matrixA, matrixA.solveWithSqrtMethod(matrixA, matrixB), matrixB));
+    }
 
-        System.out.println(matrixA);
-        System.out.println(matrixB);
-//        System.out.println(matrixС);
+    @Test
+    void sqrtMethod2() throws Exception {
+        double[][] A = {{1., 0.42, 0.54, 0.66}, {0.42, 1., 0.32, 0.44},
+                {0.54, 0.32, 1., 0.22}, {0.66, 0.44, 0.22, 1.}};
 
-        matrixA.solveEquation(matrixA, matrixB);
+        double[][] B = {{0.3}, {0.5}, {0.7}, {0.9}};
+        Matrix matrixA = new Matrix(A);
+        Matrix matrixB = new Matrix(B);
+
+        System.out.println("A:\n" + matrixA);
+        System.out.println("B:\n" + matrixB);
+        System.out.println("|Ax - B|:\n" + matrixA.calculateR(matrixA, matrixA.solveWithSqrtMethod(matrixA, matrixB), matrixB));
+    }
+
+    @Test
+    void iterationMethod1() throws Exception {
+        double[][] A = {{1.54, 0.36, 0.22, 0.22}, {0.06, 2.04, -1.68, 0.},
+                {0.36, 1.04, -1.9, 0.}, {0., 0.14, 0., 0.78}};
+
+        double[][] B = {{0.3}, {0.5}, {0.7}, {0.9}};
+        Matrix matrixA = new Matrix(A);
+        Matrix matrixB = new Matrix(B);
+
+        System.out.println("A:\n" + matrixA);
+        System.out.println("B:\n" + matrixB);
+        System.out.println("|Ax - B|:\n" + matrixA.calculateR(matrixA, matrixA.solveWithSimpleIterations(matrixA, matrixB, 0.01), matrixB));
+    }
+
+    @Test
+    void iterationMethod2() throws Exception {
+        double[][] A = {{2., 0.5, 0.5, 0.}, {3.5, 17.5, 1., 0.},
+                {-0.5, 0., 4., 3.}, {0., 0., 3., 5.}};
+
+        double[][] B = {{23.}, {32.}, {33.}, {31.}};
+        Matrix matrixA = new Matrix(A);
+        Matrix matrixB = new Matrix(B);
+
+        System.out.println("A:\n" + matrixA);
+        System.out.println("B:\n" + matrixB);
+        System.out.println("|Ax - B|:\n" + matrixA.calculateR(matrixA, matrixA.solveWithSimpleIterations(matrixA, matrixB, 0.01), matrixB));
     }
 }
