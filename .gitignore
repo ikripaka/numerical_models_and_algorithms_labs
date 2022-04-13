@@ -54,6 +54,8 @@ Thumbs.db
 # Compiled class file
 *.class
 
+.idea/
+
 # .odt files
 *.odt
 
