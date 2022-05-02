@@ -1,7 +1,9 @@
 import org.junit.jupiter.api.Test;
 
-class MatrixTest {
+import java.util.ArrayList;
+import java.util.Arrays;
 
+class MatrixTest {
     @Test
     void multiplication() throws Exception {
         double[][] A = {{1., 2., 3.}, {4., 5., 6.}, {7., 8., 9.}};
@@ -68,4 +70,14 @@ class MatrixTest {
         System.out.println("B:\n" + matrixB);
         System.out.println("|Ax - B|:\n" + matrixA.calculateR(matrixA, matrixA.solveWithSimpleIterations(matrixA, matrixB, 0.01), matrixB));
     }
+
+    @Test
+    void danilevskiyMethod() throws Exception {
+        double[][] A = {{6.26, 1.11, 0.78, 1.21}, {1.11, 4.16, 1.30, 0.16},
+                {0.78, 1.30, 5.44, 2.10}, {1.21, 0.16, 2.10, 6.10}};
+
+        Matrix matrixA = new Matrix(A);
+        System.out.println(Arrays.toString(matrixA.calculateEigenvalues(matrixA)));
+    }
 }
+

@@ -1,4 +1,5 @@
 import javax.swing.plaf.IconUIResource;
+import java.util.ArrayList;
 import java.util.Arrays;
 
 public class Matrix {
@@ -63,6 +64,21 @@ public class Matrix {
             for (int j = 0; j < B.length; j++) {
                 for (int k = 0; k < length; k++) {
                     newMatrix.matrix[i][j] += matrix[i][k] * B.matrix[k][j];
+                }
+            }
+        }
+        return newMatrix;
+    }
+
+    private Matrix multiplication(Matrix A, Matrix B) throws Exception {
+        if (A.length != B.height) {
+            throw new Exception("incorrect matrix sizes A.length != B.height");
+        }
+        Matrix newMatrix = new Matrix(B.length, A.height);
+        for (int i = 0; i < B.height; i++) {
+            for (int j = 0; j < B.length; j++) {
+                for (int k = 0; k < A.length; k++) {
+                    newMatrix.matrix[i][j] += A.matrix[i][k] * B.matrix[k][j];
                 }
             }
         }
@@ -226,6 +242,84 @@ public class Matrix {
 
         System.out.println(" ===============================================================");
         return x_k;
+    }
+
+    public double[] calculateEigenvalues(Matrix A) throws Exception {
+        ArrayList<Matrix> MList = new ArrayList<>();
+        ArrayList<Matrix> MListInverse = new ArrayList<>();
+        ArrayList<Matrix> PList = new ArrayList<>();
+
+        for (int i = 0; i < length - 1; i++) {
+            MList.add(singleMatrix(length));
+            MListInverse.add(singleMatrix(length));
+            PList.add(new Matrix(length, length));
+        }
+        PList.add((Matrix) A.clone());
+
+        for (int i = length - 2; i >= 0; i--) {
+            System.out.println("Iteration: " + (i + 1) + " ======================");
+            for (int j = 0; j < length; j++) {
+                if (j != i) {
+                    if (PList.get(i + 1).matrix[i + 1][j] == 0 || PList.get(i + 1).matrix[i + 1][i] == 0)
+                        MList.get(i).matrix[i][j] = 0;
+                    else
+                        MList.get(i).matrix[i][j] = -PList.get(i + 1).matrix[i + 1][j] / PList.get(i + 1).matrix[i + 1][i];
+
+                } else {
+                    if (PList.get(i + 1).matrix[i + 1][i] == 0)
+                        MList.get(i).matrix[i][j] = 0;
+                    else
+                        MList.get(i).matrix[i][j] = 1 / PList.get(i + 1).matrix[i + 1][i];
+                }
+                MListInverse.get(i).matrix[i][j] = PList.get(i + 1).matrix[i + 1][j];
+            }
+            PList.set(i, multiplication(multiplication(MListInverse.get(i), PList.get(i + 1)), MList.get(i)));
+            System.out.println("");
+            System.out.println("M " + (i + 1) + ":\n" + MList.get(i));
+            System.out.println("M^(-1) " + (i + 1) + ":\n" + MListInverse.get(i));
+            System.out.println("P " + (i + 1) + ":\n" + PList.get(i));
+        }
+
+
+        double[] coefficients = new double[length + 1];
+        coefficients[0] = 1;
+        for (int i = 0; i < length; i++) {
+            coefficients[i + 1] = -PList.get(0).matrix[0][i];
+        }
+
+        StringBuilder builder = new StringBuilder("");
+        for (int i = length; i >= 0; i--) {
+            if (i == 0) {
+                builder.insert(0, "x^" + (length - i));
+            } else if (i == length) {
+                builder.append(" + ").append(coefficients[i]);
+            } else {
+                builder.insert(0, " + " + coefficients[i] + "x^" + (length - i));
+            }
+        }
+        System.out.println("Characteristic polynomial: " + builder.toString());
+
+
+        return coefficients;
+    }
+
+    @Override
+    protected Object clone() throws CloneNotSupportedException {
+        try {
+            Matrix newMatrix = new Matrix(length, height);
+            newMatrix.matrix = matrix.clone();
+            return newMatrix;
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    private Matrix singleMatrix(int length) throws Exception {
+        Matrix newMatrix = new Matrix(length, length);
+        for (int i = 0; i < length; i++) {
+            newMatrix.matrix[i][i] = 1;
+        }
+        return newMatrix;
     }
 
     private double maxLineSumAbs(Matrix A) {
