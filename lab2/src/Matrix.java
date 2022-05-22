@@ -14,7 +14,6 @@ public class Matrix {
     private double[][] matrix;
     public int length, height;
 
-
     public Matrix(double[][] matrix) throws Exception {
         checkCorrectness(matrix);
         length = matrix[0].length;
